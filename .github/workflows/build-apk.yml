@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download project
-        uses: actions/checkout@v4
+      - name: Checkout project
+        uses: actions/checkout@v5
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -23,16 +23,14 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.2'
+          gradle-version: '8.9'
 
       - name: Build APK
-        run: |
-          cd ShahjhanMobileTerminal
-          gradle assembleDebug
+        working-directory: ShahjhanMobileTerminal
+        run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: ShahjhanTrading-APK
           path: ShahjhanMobileTerminal/app/build/outputs/apk/debug/*.apk
-          
